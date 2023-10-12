@@ -18,7 +18,7 @@ public class AggregatedDataController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public String getTotalTransactionByCategory() {
+    public String getTotalsTransactionByCategoryInLastMonth() {
         return aggregationService.totalByCategories();
     }
 }

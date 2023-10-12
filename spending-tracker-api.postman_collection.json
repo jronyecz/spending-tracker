@@ -142,7 +142,7 @@
 			"response": []
 		},
 		{
-			"name": "countTotalsByCategory",
+			"name": "getTotalsByCategoryInLastMonth",
 			"request": {
 				"method": "GET",
 				"header": [],

@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,10 +31,11 @@ class AggregationServiceImplTest {
     @Test
     void totalByCategories() {
         List<SumOfCategory> sums = Arrays.asList(new SumOfCategory("cat1", 12345L), new SumOfCategory("cat2", 54321L));
-        when(transactionRepository.countTotalAmountsByCategory()).thenReturn(sums);
+        when(transactionRepository.countTotalAmountsByCategory(anyString(), anyString())).thenReturn(sums);
 
         String result = aggregationService.totalByCategories();
 
         assertEquals(result, "{\"cat2\":54321,\"cat1\":12345}");
     }
+
 }

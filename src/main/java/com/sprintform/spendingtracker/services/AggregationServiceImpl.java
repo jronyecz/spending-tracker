@@ -7,6 +7,7 @@ import com.sprintform.spendingtracker.repositories.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,8 +25,12 @@ public class AggregationServiceImpl implements AggregationService {
 
     @Override
     public String totalByCategories() {
-        List<SumOfCategory> sums = transactionRepository.countTotalAmountsByCategory();
+        String previousMonthStart = LocalDate.now().minusMonths(1).withDayOfMonth(1).toString();
+        String currentMonthStart = LocalDate.now().withDayOfMonth(1).toString();
+
+        List<SumOfCategory> sums = transactionRepository.countTotalAmountsByCategory(previousMonthStart, currentMonthStart);
         Map<String, Long> data = sums.stream().collect(Collectors.toMap(SumOfCategory::getCategory, SumOfCategory::getTotal));
+
         try {
             return objectMapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
